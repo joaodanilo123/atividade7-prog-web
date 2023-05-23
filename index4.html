@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Calculadora</title>
+  <style>
+    .grid {
+      margin: 10%;
+      display: grid;
+      grid-template-columns: auto auto auto;
+      grid-template-rows: auto auto auto auto;
+      gap: 1rem;
+    }
+
+    button {
+      aspect-ratio: 1/1;
+      font-size: 4rem;
+    }
+
+    input {
+      grid-column: 1/5;
+      height: 4rem;
+    }
+
+    input {
+      font-size: 3rem;
+      text-align: right;
+      font-family: monospace;
+    }
+
+    .equal {
+      background-color: #00ff62;
+    }
+
+    .clear {
+      background-color: #ff5151;
+    }
+  </style>
+  <script>
+
+    var calc = "";
+
+    function changeResultDisplay(newValue) {
+      document.querySelector(".result").value = newValue;
+    }
+
+    function addButtonValueToCalc(button) {
+      const char = button.innerText
+      const calcLast = calc.slice(-1)
+      const calcLength = calc.length
+
+      console.table({
+        calcLast,
+        calcLength,
+        char,
+        calc
+      })
+
+      if (calcLength == 0 && !isNaN(char)) {
+        console.log("1")
+        calc = char
+      } else if (calcLength > 0) {
+        if ((!isNaN(char) && !isNaN(calcLast)) ||
+          (isNaN(char) && !isNaN(calcLast)) ||
+          (!isNaN(char) && isNaN(calcLast))
+        ) {
+          calc = `${calc}${char}`
+        }
+      }
+
+      changeResultDisplay(calc)
+    }
+
+    function calcular() {
+      result = eval(calc);
+      changeResultDisplay(result)
+      calc = String(result)
+    }
+
+    function limpar(){
+      calc = ""
+      changeResultDisplay(calc)
+    }
+
+  </script>
+</head>
+
+<body>
+
+  <form action="#" class="grid">
+    <input type="text" class="result" readonly>
+
+    <button onclick="addButtonValueToCalc(this)">1</button>
+    <button onclick="addButtonValueToCalc(this)">2</button>
+    <button onclick="addButtonValueToCalc(this)">3</button>
+
+    <button onclick="addButtonValueToCalc(this)"> + </button>
+
+    <button onclick="addButtonValueToCalc(this)">4</button>
+    <button onclick="addButtonValueToCalc(this)">5</button>
+    <button onclick="addButtonValueToCalc(this)">6</button>
+
+    <button onclick="addButtonValueToCalc(this)"> - </button>
+
+    <button onclick="addButtonValueToCalc(this)">7</button>
+    <button onclick="addButtonValueToCalc(this)">8</button>
+    <button onclick="addButtonValueToCalc(this)">9</button>
+    <button onclick="addButtonValueToCalc(this)"> * </button>
+
+    <button class="clear" onclick="limpar()">c</button>
+    <button onclick="addButtonValueToCalc(this)">0</button>
+    <button class="equal" onclick="calcular()"> = </button>
+    <button onclick="addButtonValueToCalc(this)"> / </button>
+
+
+  </form>
+
+</body>
+
+</html>
